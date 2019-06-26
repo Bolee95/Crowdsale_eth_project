@@ -1,3 +1,4 @@
+
 const assert = require('assert');
 const ganache = require('ganache-cli');
 const Web3 = require('web3');
@@ -129,3 +130,4 @@ beforeEach(async() => {
         assert.notStrictEqual(newSpenderBalance, unitsApproved + 1)
     })
 });
+

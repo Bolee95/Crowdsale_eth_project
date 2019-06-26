@@ -42,8 +42,8 @@ contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
 
         token().approve(beneficiary,tokenAmount);
         // Promeniti kad se sredi interakcija sa klijentom
-        //token().transferFrom(msg.sender,beneficiary,tokenAmount);
-        token().transfer(beneficiary,tokenAmount);
+        // token().transferFrom(msg.sender,beneficiary,tokenAmount);
+        // token().transfer(beneficiary,tokenAmount);
 
         Transaction memory newOrder = Transaction({beneficiaryAddress: beneficiary,
                                                   tokensBrought: tokenAmount,
