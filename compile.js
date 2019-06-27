@@ -35,9 +35,9 @@ const sources = {
 
 const output = solc.compile({sources}, 1).contracts;
 
-console.log(output);
 fs.ensureDirSync(buildPath);
 
+console.log('Saving interface and bytecode for contracts....');
 for (let contract in output) {
     fs.outputJsonSync(
         path.resolve(buildPath, contract.substring(contract.indexOf(':') + 1) + '.json'),
