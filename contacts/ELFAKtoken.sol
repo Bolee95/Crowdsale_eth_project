@@ -9,7 +9,6 @@ contract ELFAKtoken is Owned, ERC20Detailed {
     uint256 private totalTokensSupply;
     mapping(address => uint256) private balances;
     mapping(address => mapping(address => uint256)) allowed;
-    mapping(address => bool) private limited;
     
     // Constructor
     constructor(uint256 tokenSupply) public ERC20Detailed("ELFAKToken", "ELF", 6)

@@ -74,18 +74,50 @@ describe('Timed and rate changing Crowdsale testing', () => {
 
     it('Checking if rate changes over time while contract is open', async() => {
 
-        let time = (new Date).getTime() / 1000; // Unix Epoch time 
-        let delay = time + 1.5;
-
-        while (time < delay) // Making a delay of 1.5 sec so rate can change
-        {
-            time = (new Date).getTime() / 1000;
-        }
+        delay(1.5);
 
         let currentRate = await crowdsale.methods.getCurrentRate()
             .call({from: accounts[0]});
             assert.ok(currentRate < startingRate);
+    });
+
+    it('Checking buying of tokens from Crowdsale contract', async() => {
+
+        await crowdsale.methods.buyTokens(accounts[1])
+        .send({from:accounts[0], gas: 400000, value: web3.utils.toWei('0.01', 'Kwei')});
+
+        let allowance = await token.methods.allowance(crowdsale.options.address, accounts[1])
+        .call({from: accounts[0]});
+
+        console.log(allowance);
+        assert.ok(allowance > 0); //cant predict amount of tokens received because of rate changing
+
+
+        let approveTransfer = await token.methods.transferFrom(crowdsale.options.address, accounts[1], 900)
+        .call({from: accounts[1], gas: 400000});
+        console.log(approveTransfer);
+
+        //let approveTransfer = await token.methods.transfer(accounts[1], allowance)
+        //.call({from: crowdsale.options.address});
+        //console.log(approveTransfer);
+
+
+        allowance = await token.methods.allowance(crowdsale.options.address, accounts[1])
+        .call({from: accounts[0]});
+        console.log(allowance);
+
+        let balance = await token.methods.balanceOf(crowdsale.options.address)
+        .call({from: accounts[0]});
+        console.log('tokens taken  crowdsale adress -->>' + balance);
+
+        let balance1 = await token.methods.balanceOf(accounts[1])
+        .call({from: accounts[0]});
+        console.log('tokens taken  beneficionary adress -->>' + balance1);
+
+        //assert.ok(balance == allowance);
     })
+
+
 
 
 
@@ -98,6 +130,17 @@ describe('Timed and rate changing Crowdsale testing', () => {
     });
     */
 });
+
+// Helper function for delaying execution
+function delay(seconds) {
+    let time = (new Date).getTime() / 1000; // Unix Epoch time 
+        let delay = time + seconds;
+
+        while (time < delay) // Making a delay of 1.5 sec so rate can change
+        {
+            time = (new Date).getTime() / 1000;
+        }
+}
 // ------------------
 // Poziv payable funkcije
 // ------------------
