@@ -49,7 +49,7 @@ const deploy = async() => {
         console.log(resultCrowdsale.options.address);
 
         fs.outputFileSync(path.resolve(__dirname, 'TimedTokenCrowdsaleContractAddress.js'),
-        ' const crowdsaleAddress = ' + resultCrowdsale.options.address + ';\nmodule.exports = { crowdsaleAddress};\n');
+        'const crowdsaleAddress = ' + resultCrowdsale.options.address + ';\nmodule.exports = { crowdsaleAddress };\n');
     }
     catch(err) {
         console.log('Error has occured during TimedTokenCrowdsale deployment', err);
