@@ -57,4 +57,13 @@ contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
         //getCurrentRate() -> returns the number of tokens a buyer gets per wei at a given time
         return getCurrentRate();
     }
+
+    function timeLeft() public view returns (uint256) {
+        if (isOpen()) {
+            return closingTime() - openingTime();
+        } else 
+        {
+            return 0;
+        }
+    }
 }

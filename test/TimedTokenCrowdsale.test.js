@@ -11,6 +11,7 @@ let token;
 let crowdsale;
 
 let totalTokenSupply = 100000000;
+let startingRate = 100;
 
 describe('Timed and rate changing Crowdsale testing', () => {
 
@@ -24,7 +25,7 @@ describe('Timed and rate changing Crowdsale testing', () => {
         let time = (new Date).getTime() / 1000; // Unix Epoch time
 
         crowdsale = await new web3.eth.Contract(JSON.parse(Crowdsale.interface))
-        .deploy({data: Crowdsale.bytecode, arguments:[30, 1, accounts[0], token.options.address, time, time + 1000 ]})
+        .deploy({data: Crowdsale.bytecode, arguments:[startingRate, 1, accounts[0], token.options.address, time, time + 99 ]})
         .send({from: accounts[0], gas: '2000000'});
 
         // Sending tokens to crowdsale contract
@@ -70,6 +71,23 @@ describe('Timed and rate changing Crowdsale testing', () => {
 
         assert.strictEqual(openContract, false);
     });
+
+    it('Checking if rate changes over time while contract is open', async() => {
+
+        let time = (new Date).getTime() / 1000; // Unix Epoch time 
+        let delay = time + 1.5;
+
+        while (time < delay) // Making a delay of 1.5 sec so rate can change
+        {
+            time = (new Date).getTime() / 1000;
+        }
+
+        let currentRate = await crowdsale.methods.getCurrentRate()
+            .call({from: accounts[0]});
+            assert.ok(currentRate < startingRate);
+    })
+
+
 
     /*
     it('Checking extension of closing time for Crowdsale contract', async() => {
