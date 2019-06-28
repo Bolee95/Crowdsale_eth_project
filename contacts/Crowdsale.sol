@@ -18,7 +18,7 @@ import "./ReentrancyGuard.sol";
  */
 contract Crowdsale is ReentrancyGuard {
     using SafeMath for uint256;
-
+    
     // The token being sold
     IERC20 private _token;
 
@@ -111,7 +111,6 @@ contract Crowdsale is ReentrancyGuard {
 
         // calculate token amount to be created
         uint256 tokens = _getTokenAmount(weiAmount);
-
         // update state
         _weiRaised = _weiRaised.add(weiAmount);
 

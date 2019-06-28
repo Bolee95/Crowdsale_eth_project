@@ -4,7 +4,7 @@ const HDWalletProvider = require('truffle-hdwallet-provider');
 const Web3 = require('web3');
 const {tokenAddress} = require('./ELFAKtokenContractAddress');
 
-const crowdsaleProvider = new HDWalletProvider('ensure always need flower bullet system second harbor address smart drink tobacco','https://rinkeby.infura.io/v3/af4014d9acde40558f050018384911e6');
+const crowdsaleProvider = new HDWalletProvider('oxygen purchase shy seven filter saddle mansion process joke begin abstract hover','https://rinkeby.infura.io/v3/af4014d9acde40558f050018384911e6');
 const web3 = new Web3(crowdsaleProvider);
 
 const Crowdsale = require('./build/TimedTokenCrowdsale.json');

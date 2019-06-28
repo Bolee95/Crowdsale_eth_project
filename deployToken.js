@@ -3,7 +3,7 @@ const fs = require('fs-extra');
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const Web3 = require('web3');
 
-const tokenProvider = new HDWalletProvider('ensure always need flower bullet system second harbor address smart drink tobacco','https://rinkeby.infura.io/v3/b218dc156a124ecdaf26797f287fdd73');
+const tokenProvider = new HDWalletProvider('oxygen purchase shy seven filter saddle mansion process joke begin abstract hover','https://rinkeby.infura.io/v3/b218dc156a124ecdaf26797f287fdd73');
 const web3 = new Web3(tokenProvider);
 
 const ELFAKToken = require('./build/ELFAKtoken.json');
