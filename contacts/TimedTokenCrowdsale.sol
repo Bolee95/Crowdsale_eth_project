@@ -20,6 +20,8 @@ contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
     uint128 public transactionCounter = 0;
 
     address public crowdsaleCreator;
+
+    event TransactionMade(address indexed beneficiary, uint256 indexed tokensBrought, uint256 timestamp);
     
     constructor(uint16 _startRate,uint16 _endRate, address _wallet, IERC20 _token, uint256 _startingDate, uint256 _endingDate) public 
     Crowdsale(_startRate, _wallet, _token)
@@ -48,7 +50,8 @@ contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
         Transaction memory newOrder = Transaction({beneficiaryAddress: beneficiary,
                                                   tokensBrought: tokenAmount,
                                                   timestamp: now});
-        
+
+        emit TransactionMade(beneficiary, tokenAmount, now);
         transactionCounter = transactionCounter + 1;
         transactions.push(newOrder);
     }
@@ -61,8 +64,7 @@ contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
     function timeLeft() public view returns (uint256) {
         if (isOpen()) {
             return closingTime() - openingTime();
-        } else 
-        {
+        } else {
             return 0;
         }
     }
