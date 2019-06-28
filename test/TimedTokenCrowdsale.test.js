@@ -81,7 +81,7 @@ describe('Timed and rate changing Crowdsale testing', () => {
             assert.ok(currentRate < startingRate);
     });
 
-    it('Checking buying of tokens from Crowdsale contract', async() => {
+    it('Checking buying of tokens from Crowdsale contract and writting to transactions array', async() => {
 
         await crowdsale.methods.buyTokens(accounts[1])
         .send({from:accounts[0], gas: 400000, value: web3.utils.toWei('0.01', 'Kwei')});
@@ -92,43 +92,63 @@ describe('Timed and rate changing Crowdsale testing', () => {
         console.log(allowance);
         assert.ok(allowance > 0); //cant predict amount of tokens received because of rate changing
 
+        await token.methods.transferFrom(crowdsale.options.address, accounts[1], allowance)
+        .send({from: accounts[1], gas: 400000});
 
-        let approveTransfer = await token.methods.transferFrom(crowdsale.options.address, accounts[1], 900)
-        .call({from: accounts[1], gas: 400000});
-        console.log(approveTransfer);
-
-        //let approveTransfer = await token.methods.transfer(accounts[1], allowance)
-        //.call({from: crowdsale.options.address});
-        //console.log(approveTransfer);
-
-
-        allowance = await token.methods.allowance(crowdsale.options.address, accounts[1])
+        let balance = await token.methods.balanceOf(accounts[1])
         .call({from: accounts[0]});
-        console.log(allowance);
+        console.log('tokens taken beneficionary adress -->>' + balance);
 
-        let balance = await token.methods.balanceOf(crowdsale.options.address)
+        assert.ok(balance == allowance); 
+
+        // Checking if transaction is written into array
+
+        let transaction = await crowdsale.methods.transactions(0)
         .call({from: accounts[0]});
-        console.log('tokens taken  crowdsale adress -->>' + balance);
 
-        let balance1 = await token.methods.balanceOf(accounts[1])
-        .call({from: accounts[0]});
-        console.log('tokens taken  beneficionary adress -->>' + balance1);
+        assert(transaction != undefined)
+    })
 
-        //assert.ok(balance == allowance);
+    it('Checking if transaction can be read when there is no any transaction written', async() => {
+        try {
+            let transaction = await crowdsale.methods.transactions(0)
+            .call({from: accounts[0]});
+        } catch(error) {
+            console.log('There is no transactions to be shown.');
+            console.log('Error message: ' + error);
+        }       
     })
 
 
+    it('Checking if tokens can be brought from zero address.', async() => {
+        try {
+            await crowdsale.methods.buyTokens(0x0)
+            .send({from: accounts[0], gas: 400000, value: web3.utils.toWei('0.01', 'Kwei')});
+        }
+        catch(error) {
+            console.log("Function throw because of buying tokens to zero address. ");
+            console.log('Error message: ' + error);
+        }
+        assert.ok(true);
+    })
 
+    it('Checking if amount of token brought can be zero.', async() => {
+        try {
+            await crowdsale.methods.buyTokens(accounts[1])
+            .send({from: accounts[0], gas: 400000, value: web3.utils.toWei('0.0', 'Kwei')});
+        }
+        catch(error) {
+            console.log('Error message: ' + error);
+        }
+        assert.ok(true);
+    })
 
+    it('Checking if timeLeft returns number of seconds when Crowdsale is active', async() => {
+        let timeLeft = await crowdsale.methods.timeLeft()
+        .call({from: accounts[0]});
 
-    /*
-    it('Checking extension of closing time for Crowdsale contract', async() => {
-
-        await crowdsale.methods._extendTime(time + 1100)
-        .send({from: accounts[0], gas: '1000000'})
-
-    });
-    */
+        assert.notEqual(timeLeft, 0);
+    })
 });
 
 // Helper function for delaying execution
@@ -141,28 +161,3 @@ function delay(seconds) {
             time = (new Date).getTime() / 1000;
         }
 }
-// ------------------
-// Poziv payable funkcije
-// ------------------
-/*
-it('sends donation', async () => {
-    const donationsAddress = await donations.methods.getDonations()
-    .call({from:accounts[0]});
-
-    const publicDonation = new web3.eth.Contract(JSON.parse(PublicDonation.interface),donationsAddress[0]);
-
-    // Poziv funkcije za placanje (payable)
-    await publicDonation.methods.donate()
-    .send({from:accounts[2], gas:60000000, value: web3.utils.toWei('0.1', 'ether')});
-
-    const donated = await publicDonation.methods.totalDonations()
-    .call({from:accounts[0]});
-
-    const donors = await publicDonation.methods.getDonations()
-    .call({from:accounts[0]});
-
-    assert(web3.utils.fromWei(donated, 'ether'), '0.1');
-    assert(donors[0], accounts[2]);
-})
-
-*/

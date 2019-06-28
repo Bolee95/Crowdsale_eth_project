@@ -6,7 +6,6 @@ import "./IncreasingPriceCrowdsale.sol";
 import "./TimedCrowdsale.sol";
 import "./ELFAKtoken.sol";
 
-
 contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
     
     struct Transaction
@@ -16,10 +15,10 @@ contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
         uint256 timestamp;
     }
     
-    Transaction[] public transactions;
-    uint128 public transactionCounter = 0;
+    Transaction[] public _transactions;
+    uint128 public _transactionCounter = 0;
 
-    address public crowdsaleCreator;
+    address public _crowdsaleCreator;
 
     event TransactionMade(address indexed beneficiary, uint256 indexed tokensBrought, uint256 timestamp);
     
@@ -28,12 +27,12 @@ contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
     TimedCrowdsale(_startingDate,_endingDate)
     IncreasingPriceCrowdsale(_startRate,_endRate)
     {
-        crowdsaleCreator = msg.sender;
+        _crowdsaleCreator = msg.sender;
     }
     
     function _preValidatePurchase(address beneficiary, uint256 weiAmount) internal view {
         super._preValidatePurchase(beneficiary, weiAmount);
-        require(isOpen() == true, "Cannot buy tokens yet, its not time!");
+        require(isOpen() == true, "TimedCrowdsale: Cannot buy tokens yet, its not time!");
     }
     
     function _postValidatePurchase(address beneficiary, uint256 weiAmount) internal view {
@@ -52,8 +51,8 @@ contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
                                                   timestamp: now});
 
         emit TransactionMade(beneficiary, tokenAmount, now);
-        transactionCounter = transactionCounter + 1;
-        transactions.push(newOrder);
+        _transactionCounter = _transactionCounter + 1;
+        _transactions.push(newOrder);
     }
     
     function rate() public view returns (uint256) {

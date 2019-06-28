@@ -51,8 +51,9 @@ beforeEach(async() => {
         try {
             resultCheck = await token.methods.transfer(accounts[1], totalTokenSupply / 2 + 1)
             .send({from: accounts[0], gas: '1000000'});
-        } catch {
+        } catch (error) {
             console.log("Check throwed because require statement because someone would have more then a half of total tokens.\nThis is good in this case.");
+            console.log("Error message: " + error);
             return;
         }
     })
@@ -65,8 +66,9 @@ beforeEach(async() => {
             await token.methods.transfer(accounts[1], balance + 1)
             .send({from: accounts[0], gas: '1000000'})
         }
-        catch {
+        catch (error) {
             console.log('Contracts method has thrown with require statement because someone is trying to send more token then it haves.');
+            console.log("Error message: " + error);
         }
     })
 
@@ -96,8 +98,9 @@ beforeEach(async() => {
             await token.methods.transferFrom(accounts[0], accounts[1], tokensRequested)
             .send({from: accounts[1], gas: '1000000'})
         }
-        catch {
-            console.log('This call of function should fail, because someone tries to take tokens without proper value of allowence.')
+        catch(error) {
+            console.log('This call of function should fail, because someone tries to take tokens without proper value of allowence.');
+            console.log('Error message: ' + error);
         }
 
         let newSpenderBalance = await token.methods.balanceOf(accounts[1])
@@ -120,13 +123,34 @@ beforeEach(async() => {
             await token.methods.transferFrom(accounts[0], accounts[1], unitsApproved + 1)
             .send({from: accounts[1], gas: '1000000'})
         }
-        catch {
+        catch(error) {
             console.log('This call of function should fail, because someone tries to take tokens without proper value of allowence.')
+            console.log('Error message: ' + error)
         }
 
         let newSpenderBalance = await token.methods.balanceOf(accounts[1])
         .call({from: accounts[0]})
         assert.notStrictEqual(newSpenderBalance, unitsApproved + 1)
+    })
+
+
+    it('Testing of transfering ownership of token', async() => {
+
+        let currentOwnerAddress = await token.methods.getOwnerAddress()
+        .call({from: accounts[0]});
+
+        assert(currentOwnerAddress == accounts[0]);
+
+        await token.methods.transferOwnership(accounts[1])
+        .send({from: accounts[0], gas: 400000});
+
+        await token.methods.acceptOwnership()
+        .send({from: accounts[1], gas: 400000});
+
+        currentOwnerAddress = await token.methods.getOwnerAddress()
+        .call({from: accounts[1]});
+
+        assert(currentOwnerAddress == accounts[1]);
     })
 });
 
