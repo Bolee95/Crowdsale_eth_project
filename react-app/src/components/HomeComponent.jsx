@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import web3 from "./../services/web3";
-import CrowdsaleContract from "../ethereum/cowdsaletoken";
+import CrowdsaleContract from "../ethereum/crowdsaletoken";
 import ElfakContract from "../services/ElfakContract";
 import { animateScroll } from "react-scroll";
 import { MDBDataTable } from 'mdbreact';
