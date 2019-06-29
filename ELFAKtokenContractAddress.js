@@ -1,2 +1,2 @@
-const tokenAddress = '0x0F0b284557c73467D437835Fb5F36CFDEE7399b3';
+const tokenAddress = '0xC4A10e71DbAc08A7C48F366806c3A6645180105F';
 module.exports = { tokenAddress };

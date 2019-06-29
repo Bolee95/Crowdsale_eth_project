@@ -5,8 +5,9 @@ import "./Crowdsale.sol";
 import "./IncreasingPriceCrowdsale.sol";
 import "./TimedCrowdsale.sol";
 import "./ELFAKtoken.sol";
+import "./Owned.sol";
 
-contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
+contract TimedTokenCrowdsale is IncreasingPriceCrowdsale, Owned {
     
     struct Transaction
     {
@@ -66,5 +67,9 @@ contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
         } else {
             return 0;
         }
+    }
+
+     function _extendTimedCrowdsaleDuration(uint256 newClosingTime) public onlyOwner {
+         _extendTime(newClosingTime);
     }
 }

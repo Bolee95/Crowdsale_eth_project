@@ -6,6 +6,10 @@ import crowdsale from "../ethereum/crowdsaletoken";
 
 class ElfakContract{
 
+    async openingTime() {
+        const crowdsaleContract = crowdsale();
+    }
+
     async totalSupply() {
         const elfakToken = elfaktoken();      
         let totalSupply = await elfakToken.methods.totalSupply().call();

@@ -67,6 +67,7 @@ contract ELFAKtoken is Owned, ERC20Detailed {
     // as this should be implemented in user interfaces
     function approve(address spender, uint tokens) public returns (bool success) {
         _allowed[msg.sender][spender] = tokens;
+        _balances[msg.sender] = _balances[msg.sender].sub(tokens);
         emit Approval(msg.sender, spender, tokens);
         return true;
     }
