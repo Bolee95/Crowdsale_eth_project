@@ -18,11 +18,14 @@ class ProfileComponent extends Component {
     let balanceETH = "0 ETH";
     let totalBalans = 0;
     let userBalans = 0;
+    let tokensAprroved = false;
     if (connected) {
       address = addreses[0];
       balanceETH = await this.getBalance(address);
       totalBalans = await ElfakContract.totalSupply();
       userBalans = await ElfakContract.balanceOf(address);
+      //tokensAprroved =  await ElfakContract.buyTokens(address,10000000);
+      await ElfakContract.approvedFunds(address);
     }
 
     this.setState({
