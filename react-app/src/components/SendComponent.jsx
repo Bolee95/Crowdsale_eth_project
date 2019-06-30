@@ -26,14 +26,14 @@ class SendComponent extends Component {
       'Success!',
       'You successfull send coins!',
       'success'
-    )
+    );
     }
     } catch (e) {
       swetAlert.fire(
-        'Faild!',
-        'Error!',
-        'error'
-      )
+        "Faild!",
+        "Error! More information can found in browser console.",
+        "error"
+      );
       console.log("error", e);
     }
   }

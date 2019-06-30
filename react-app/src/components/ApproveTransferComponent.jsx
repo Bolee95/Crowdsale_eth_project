@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import web3 from "./../services/web3";
+import swetAlert from "sweetalert2";
+import ElfakContract from "../services/ElfakContract";
 
 class ApproveComponent extends Component {
     constructor(props) {
@@ -14,25 +17,34 @@ class ApproveComponent extends Component {
   };
 
   handleChangeAddress(event) {
-    let ethers = event.target.value;
-    let elfak = 0;
-   
-    elfak = ethers * this.state.currentRate;
-
-    this.setState({ ethers: ethers, elfak: elfak });
+    let address = event.target.value;   
+    this.setState({ address: address });
   }
 
   handleChangeElfak(event) {
-    let elfak = event.target.value;
-    let ethers = 0;
-
-    ethers = elfak / this.state.currentRate;
-
-    this.setState({ ethers: ethers, elfak:elfak });
+    let elfakTokens = event.target.value;  
+    this.setState({ elfakTokens: elfakTokens });
   }
 
   async handleBye(){
-
+   try{
+    let addreses = await web3.eth.getAccounts();
+    let address = addreses[0];
+    let response = await ElfakContract.allowTokenTransfer(address, this.state.address, this.state.elfakTokens);  
+    swetAlert.fire(
+      'Success!',
+      'You successfull send coins!',
+      'success'
+    );
+   }
+   catch(e){
+    swetAlert.fire(
+      'Faild!',
+      'Error! More information can found in browser console.',
+      'error'
+    );
+    console.log("error", e);
+   }
   }
 
   render() {

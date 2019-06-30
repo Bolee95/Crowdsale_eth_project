@@ -44,7 +44,7 @@ class HomeComponent extends Component {
 
   scrollToBottom() {
     animateScroll.scrollToBottom({
-      containerId: "lista"
+      containerId: "root"
     });
   }
 

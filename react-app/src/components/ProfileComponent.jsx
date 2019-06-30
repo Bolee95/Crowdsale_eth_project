@@ -5,7 +5,6 @@ import CrowdsaleContract from "../services/CrowdsaleContract";
 import Addresses from "../ethereum/TokenAddresses";
 
 class ProfileComponent extends Component {
-
   constructor(props) {
     super(props);
     this.handleGettingTokens = this.handleGettingTokens.bind(this);
@@ -35,8 +34,11 @@ class ProfileComponent extends Component {
       balanceETH = await this.getBalance(userAddr);
       totalBalans = await ElfakContract.totalSupply();
       userBalans = await ElfakContract.balanceOf(userAddr);
-      let ownerAddress = await ElfakContract.getOwnerAddress();
-      userAllowedFunds = await ElfakContract.getAllowedAmountOfTokens(userAddr, ownerAddress);
+      //let ownerAddress = await ElfakContract.getOwnerAddress();
+      userAllowedFunds = await ElfakContract.getAllowedAmountOfTokens(
+        userAddr,
+        Addresses.TimedTokenCrowdsale
+      );
       await ElfakContract.approvedFunds(userAddr);
       console.log();
     }
@@ -51,7 +53,7 @@ class ProfileComponent extends Component {
       userAddress: userAddr
     });
   }
-  
+
   async getBalance(address) {
     let balanceETH = "0 ETH";
     await web3.eth.getBalance(address, (err, balance) => {
@@ -63,17 +65,19 @@ class ProfileComponent extends Component {
 
   async handleGettingTokens() {
     try {
-      let ownerAddress = await ElfakContract.getOwnerAddress();
-      let tokensTransfered = await ElfakContract.getTokens(ownerAddress,
-        this.state.userAddress);
+      //let ownerAddress = await ElfakContract.getOwnerAddress();
+      let tokensTransfered = await ElfakContract.getTokens(
+        Addresses.TimedTokenCrowdsale,
+        this.state.userAddress
+      );
+    } catch (error) {
+      console.log("ERROR:   " + error);
     }
-    catch (error) { console.log("ERROR:   " + error) }
 
     //if (tokensTransfered) {
     //    this.state.userBalans = await ElfakContract.balanceOf(this.state.userAddress);
     //}
   }
-
 
   connectedText() {
     let connected;
@@ -88,12 +92,14 @@ class ProfileComponent extends Component {
   render() {
     let renderButton = "";
     if (this.state.userAllowence > 0) {
-      renderButton = <button
-        className="btn btn-primary text-center"
-        onClick={this.handleGettingTokens}       
-      >
-        Get tokens
-     </button>
+      renderButton = (
+        <button
+          className="btn btn-primary text-center"
+          onClick={this.handleGettingTokens}
+        >
+          Get tokens
+        </button>
+      );
     }
 
     return (
