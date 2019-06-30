@@ -7,7 +7,7 @@ class MenuComponent extends Component {
     return (
       <nav className="nav flex-column whiteColorClass">
         <div className="sidebar-header">
-          <h3 className="bold" id= "justified">Menu</h3>
+      
         </div>
         <a className="nav-link"  href="/">
         Crowdsale transactions
