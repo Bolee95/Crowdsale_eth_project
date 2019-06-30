@@ -55,7 +55,26 @@ class CrowdsaleContract {
         const crowdsaleContract = crowdsale();
         let currentRate = await crowdsaleContract.methods.getCurrentRate()
         .call();
-        return bigInt(currentRate._hex).toString;
+        return bigInt(currentRate._hex);
     }
 
+    //konvertuje unesene wei u tokene koji ce biti kupljeni
+    async convertWeiToToken(weiAmount, currentRate) {
+        const tokenContract = elfaktoken();
+        let decimals = await tokenContract.methods.decimals().call();
+        var returnVal = (weiAmount * currentRate) / Math.pow(10,decimals);
+        return returnVal;
+    }
+
+     //konvertuje unesene tokene u wei koji ce biti kupljeni
+     async convertTokenToWei(tokenAmount, currentRate) {
+        const tokenContract = elfaktoken();
+        let decimals = await tokenContract.methods.decimals().call();
+        let returnVal = (tokenAmount * Math.pow(10,decimals)) / currentRate;
+        return returnVal; 
+    }
+
+
 }
+
+export default CrowdsaleContract = new CrowdsaleContract();

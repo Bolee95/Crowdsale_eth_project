@@ -70,6 +70,25 @@ class ElfakContract {
         .send({from: address});
 
         return tokensTransfered;
+    }
+
+    // Metoda za dozvoljavanje prenosa odredjene kolicine tokena onog ko poziva onome ko je prosledjen kao parametar 
+    async allowTokenTransfer(callerAddress, addressTo, ammount) {
+        const tokenContract = elfaktoken();
+        let transferApproved = await tokenContract.methods.approve(addressTo, ammount)
+        .send({from: callerAddress});
+        return transferApproved;
+    }
+
+    // Metoda za proveru koliko korisnik ima dozvoljenih tokena da skine sa odredjene adrese
+    async getAllowedAmountOfTokens(callerAddress, tokenOwner) {
+        const tokenContract = elfaktoken();
+        let allowedFunds = await tokenContract.methods.allowance(tokenOwner, callerAddress)
+        .call();
+
+        return bigInt(allowedFunds._hex).toString();
+    }
+
     } 
     
     // Metoda koja pribavlja broj decimala zadatog tokena
