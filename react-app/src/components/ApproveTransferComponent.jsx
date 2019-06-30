@@ -4,17 +4,16 @@ class ApproveComponent extends Component {
     constructor(props) {
         super(props);
         this.handleBye = this.handleBye.bind(this);
-        this.handleChangeEthers = this.handleChangeEthers.bind(this);
+        this.handleChangeAddress = this.handleChangeAddress.bind(this);
         this.handleChangeElfak = this.handleChangeElfak.bind(this);
       }
     
   state = {
-    currentRate: "2",
-    ethers: "0",
-    elfak: "0"
+    address: "",
+    elfakTokens: ""
   };
 
-  handleChangeEthers(event) {
+  handleChangeAddress(event) {
     let ethers = event.target.value;
     let elfak = 0;
    
@@ -39,21 +38,21 @@ class ApproveComponent extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1 className="form-text m-2">Bye tokens</h1>
+        <h1 className="form-text m-2">Approve tokens</h1>
         <div className="col-md-12">
           <div className="form-group">
-            <label htmlFor="AddressSender">Quantity of ethes</label>
+            <label htmlFor="AddressWhereSend">Address where approve</label>
             <input
               type="text"
               className="form-control"
-              id="AddressSender"
+              id="AddressWhereSend"
               aria-describedby="emailHelp"
-              placeholder="Enter quantity"
-              value = {this.state.ethers}
-              onChange = {this.handleChangeEthers}
+              placeholder="Enter address"
+              value = {this.state.address}
+              onChange = {this.handleChangeAddress}
             />
             <small id="QuantityEtherHelp" className="form-text text-muted">
-              Enter quantity of ethers wihch you wont to spend.
+              Address which approve to withdraw tokens from your account.
             </small>
           </div>
           <div className="form-group">
@@ -63,33 +62,18 @@ class ApproveComponent extends Component {
               className="form-control"
               id="InputQuantityELFAK"
               placeholder="Enter quantity"
-              value = {this.state.elfak}
+              value = {this.state.elfakTokens}
               onChange = {this.handleChangeElfak}
             />
             <small id="QuantityEtherELFAKHelp" className="form-text text-muted">
-              Enter quantity of elfak token wihch you wont to bye.
+              Enter quantity of elfak token wihch you wont to withdraw.
             </small>
-          </div>
-          <div className="form-group">
-            <label htmlFor="InputCurrentRate">Current rate</label>
-            <input
-              type="text"
-              className="form-control"
-              readOnly
-              id="InputCurrentRate"
-              aria-describedby="emailHelp"
-              value={this.state.currentRate}
-            />
-            <small id="AdressHelp" className="form-text text-muted">
-              Coefficient of replacement.
-            </small>
-          </div>
+          </div>          
           <button
-            type="submit"
             className="btn btn-primary"
             onClick={this.handleBye}
           >
-            Bye
+            Approve
           </button>
         </div>
       </React.Fragment>

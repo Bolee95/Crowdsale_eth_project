@@ -7,6 +7,8 @@ import TransferComponent from "./components/TransferComponent";
 import SendComponent from "./components/SendComponent";
 import ProfileComponent from "./components/ProfileComponent";
 import ByeComponent from "./components/ByeComponent";
+import ApproveTransferComponent from "./components/ApproveTransferComponent";
+import ELFAKTransactionsComponent from "./components/ELFAKTransactionsComponent";
 import "./App.css";
 
 function App() {
@@ -22,8 +24,10 @@ function App() {
             <Router>
               <Switch>
                 <Route path="/" exact component={HomeComponent} />
+                <Route path="/elfak" exact component={ELFAKTransactionsComponent} />
                 <Route path="/send" component={SendComponent} />
                 <Route path="/transfer" component={TransferComponent} />
+                <Route path = "/approve" component={ApproveTransferComponent} />
                 <Route path = "/byetokens" component={ByeComponent} />
               </Switch>
             </Router>
