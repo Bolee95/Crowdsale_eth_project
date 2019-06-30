@@ -5,8 +5,9 @@ import "./Crowdsale.sol";
 import "./IncreasingPriceCrowdsale.sol";
 import "./TimedCrowdsale.sol";
 import "./ELFAKtoken.sol";
+import "./Owned.sol";
 
-contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
+contract TimedTokenCrowdsale is IncreasingPriceCrowdsale, Owned {
     
     struct Transaction
     {
@@ -18,8 +19,6 @@ contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
     Transaction[] public _transactions;
     uint128 public _transactionCounter = 0;
 
-    address public _crowdsaleCreator;
-
     event TransactionMade(address indexed beneficiary, uint256 indexed tokensBrought, uint256 timestamp);
     
     constructor(uint16 _startRate,uint16 _endRate, address _wallet, IERC20 _token, uint256 _startingDate, uint256 _endingDate) public 
@@ -27,7 +26,6 @@ contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
     TimedCrowdsale(_startingDate,_endingDate)
     IncreasingPriceCrowdsale(_startRate,_endRate)
     {
-        _crowdsaleCreator = msg.sender;
     }
     
     function _preValidatePurchase(address beneficiary, uint256 weiAmount) internal view {
@@ -42,9 +40,6 @@ contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
     function _deliverTokens(address beneficiary, uint256 tokenAmount) internal onlyWhileOpen {
 
         token().approve(beneficiary,tokenAmount);
-        // Promeniti kad se sredi interakcija sa klijentom
-        // token().transferFrom(msg.sender,beneficiary,tokenAmount);
-        // token().transfer(beneficiary,tokenAmount);
 
         Transaction memory newOrder = Transaction({beneficiaryAddress: beneficiary,
                                                   tokensBrought: tokenAmount,
@@ -56,7 +51,6 @@ contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
     }
     
     function rate() public view returns (uint256) {
-        //getCurrentRate() -> returns the number of tokens a buyer gets per wei at a given time
         return getCurrentRate();
     }
 
@@ -66,5 +60,9 @@ contract TimedTokenCrowdsale is IncreasingPriceCrowdsale {
         } else {
             return 0;
         }
+    }
+
+     function extendTimedCrowdsaleDuration(uint256 newClosingTime) public onlyOwner {
+         _extendTime(newClosingTime);
     }
 }

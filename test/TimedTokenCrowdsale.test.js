@@ -103,7 +103,7 @@ describe('Timed and rate changing Crowdsale testing', () => {
 
         // Checking if transaction is written into array
 
-        let transaction = await crowdsale.methods.transactions(0)
+        let transaction = await crowdsale.methods._transactions(0)
         .call({from: accounts[0]});
 
         assert(transaction != undefined)
@@ -111,7 +111,7 @@ describe('Timed and rate changing Crowdsale testing', () => {
 
     it('Checking if transaction can be read when there is no any transaction written', async() => {
         try {
-            let transaction = await crowdsale.methods.transactions(0)
+            let transaction = await crowdsale.methods._transactions(0)
             .call({from: accounts[0]});
         } catch(error) {
             console.log('There is no transactions to be shown.');
@@ -148,6 +148,30 @@ describe('Timed and rate changing Crowdsale testing', () => {
         .call({from: accounts[0]});
 
         assert.notEqual(timeLeft, 0);
+    })
+
+    it('Cheking if Crowdsale can be extended if entered time is less then current close time', async() => {       
+        try {
+
+            let time = (new Date).getTime() / 1000; // Unix Epoch time
+            await crowdsale.methods.extendTimedCrowdsaleDuration(time - 96)
+            .send({from: accounts[0], gas: 400000})
+        } catch(error)
+        {
+            console.log('Error message: ' + error);
+        }
+    })
+
+    it('Cheking if Crowdsale can be extended if entered time is less then current close time', async() => {      
+        try {
+            let time = (new Date).getTime() / 1000; // Unix Epoch time
+            await crowdsale.methods.extendTimedCrowdsaleDuration(time - 100)
+            .send({from: accounts[0], gas: 400000})
+        } catch(error)
+        {
+            console.log('Error message: ' + error);
+        }
+        assert.ok(true);
     })
 });
 

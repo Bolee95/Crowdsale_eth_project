@@ -1,11 +1,24 @@
-//import web3 from "./web3";
 import bigInt from "big-integer";
 import elfaktoken from "../ethereum/elfaktoken";
 import crowdsale from "../ethereum/crowdsaletoken";
-//import addresses from "../ethereum/TokenAddresses";
 
-class ElfakContract{
+class ElfakContract {
 
+    // Vraca naziv tokena
+    async getTokenName() {
+        const elfakToken = elfaktoken();      
+        let tokenName = await elfakToken.methods.name().call();
+        return tokenName.toString();
+    }
+
+    // Vraca skracenicu tokena (kao na primer ELF...)
+    async getTokenSymbol() {
+        const elfakToken = elfaktoken();      
+        let tokenSymbol = await elfakToken.methods.symbol().call();
+        return tokenSymbol.toString();
+    }
+
+    // Vraca ukupan broj tokena 
     async totalSupply() {
         const elfakToken = elfaktoken();      
         let totalSupply = await elfakToken.methods.totalSupply().call();
@@ -14,13 +27,13 @@ class ElfakContract{
         return decimalValue.toString();
     }
 
+    // Vraca balans za korisnika koji pozove ovu funkciju
     async balanceOf(address) {
         const elfakToken = elfaktoken(); 
         let balanceOf = await elfakToken.methods.balanceOf(address).call();
         let decimals = await elfakToken.methods.decimals().call();
         let decimalValue = bigInt(balanceOf._hex) / Math.pow(10,decimals);
         return decimalValue.toString();
-
     }
 
     // Metoda koja vraca dozvoljena sredstva za preuzimanje za trenutnog korisnika
@@ -32,14 +45,6 @@ class ElfakContract{
         return bigInt(approvedFunds._hex) / Math.pow(10,decimals);
     }
 
-    // Metoda za kupovinu tokena od strane trenutnog korisnika (dobija se samo approve)
-    async buyTokens(address,tokenAmount) {
-        const crowdsaleContract = crowdsale();
-        let tokensApproved = await crowdsaleContract.methods.buyTokens(address)
-        .send({from: address, value: tokenAmount});
-        return tokensApproved;
-    }
-
     // Metoda za transfer tokena sa jednog racuna na drugi, u slucaju da korisnik ima dozvolu da salje tokene
     async transferTokens(address,addrFrom, addrTo, tokenAmount) {
         const tokenContract = elfaktoken();
@@ -47,7 +52,6 @@ class ElfakContract{
         .send({from: address, value: tokenAmount});
         return tokensTransfered;
     }
-
 
     // Metoda koja se poziva kada se klikne dugme @Get tokens@
     async getTokens(address) {

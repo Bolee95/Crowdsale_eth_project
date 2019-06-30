@@ -89,7 +89,6 @@ contract TimedCrowdsale is Crowdsale {
      */
     function _extendTime(uint256 newClosingTime) internal {
         require(!hasClosed(), "TimedCrowdsale: already closed");
-        // solhint-disable-next-line max-line-length
         require(newClosingTime > _closingTime, "TimedCrowdsale: new closing time is before current closing time");
 
         emit TimedCrowdsaleExtended(_closingTime, newClosingTime);

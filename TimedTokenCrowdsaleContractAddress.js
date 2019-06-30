@@ -1,2 +1,2 @@
-const crowdsaleAddress = '0xc8C8f9b46546206baCF5f97d3157d180a75949e5';
+const crowdsaleAddress = '0xA61F93903d605E8C05F5f7C6a3eE0a46864974aD';
 module.exports = { crowdsaleAddress };
