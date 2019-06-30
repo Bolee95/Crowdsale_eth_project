@@ -35,7 +35,8 @@ class ProfileComponent extends Component {
       balanceETH = await this.getBalance(userAddr);
       totalBalans = await ElfakContract.totalSupply();
       userBalans = await ElfakContract.balanceOf(userAddr);
-      userAllowedFunds = await ElfakContract.getAllowedAmountOfTokens(userAddr, Addresses.TimedTokenCrowdsale);
+      let ownerAddress = await ElfakContract.getOwnerAddress();
+      userAllowedFunds = await ElfakContract.getAllowedAmountOfTokens(userAddr, ownerAddress);
       await ElfakContract.approvedFunds(userAddr);
       console.log();
     }
