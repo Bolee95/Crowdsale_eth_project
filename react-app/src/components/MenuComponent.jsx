@@ -18,6 +18,9 @@ class MenuComponent extends Component {
         <a className="nav-link" href="/transfer">
           Transfer
         </a>
+        <a className="nav-link" href="/byetokens">
+          Bye tokens
+        </a>
       </nav>
     );
   }

@@ -6,6 +6,7 @@ import HomeComponent from "./components/HomeComponent";
 import TransferComponent from "./components/TransferComponent";
 import SendComponent from "./components/SendComponent";
 import ProfileComponent from "./components/ProfileComponent";
+import ByeComponent from "./components/ByeComponent";
 import "./App.css";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/" exact component={HomeComponent} />
                 <Route path="/send" component={SendComponent} />
                 <Route path="/transfer" component={TransferComponent} />
+                <Route path = "/byetokens" component={ByeComponent} />
               </Switch>
             </Router>
           </div>

@@ -1,6 +1,6 @@
 let Addresses = {
-    TimedTokenCrowdsale: "0xc8C8f9b46546206baCF5f97d3157d180a75949e5",
-    ELFAKtoken: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3"
+    TimedTokenCrowdsale: "0xA61F93903d605E8C05F5f7C6a3eE0a46864974aD",
+    ELFAKtoken: "0xa1D7600a4E34A2e3e0C9d6a910b4C005DDC118f1"
 };
 
 export default Addresses;
