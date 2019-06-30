@@ -1,261 +1,43 @@
 import React, { Component } from "react";
 import web3 from "./../services/web3";
 import CrowdsaleContract from "../ethereum/crowdsaletoken";
-import ElfakContract from "../services/ElfakContract";
 import { animateScroll } from "react-scroll";
-import { MDBDataTable } from 'mdbreact';
+import ElfToken from "../ethereum/elfaktoken";
+import bigInt from "big-integer";
+
 
 class HomeComponent extends Component {
   state = {
-    totalSupply: "0",
-    transactions: [
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      },
-      {
-        address: "0x0F0b284557c73467D437835Fb5F36CFDEE7399b3",
-        quantity: "4.567",
-        time: "15:17 29.6.2019"
-      }
-    ]
+    transactions: []
   };
 
   async componentDidMount() {
-    //const elfakContract1 = await ElfakContract.totalSupply();
-    //const elfakContract2 = await ElfakContract.balanceOf(this.state.totalSupply);
-    //const crowdsale = CrowdsaleContract();
-    /*
-    this.setState({
-      totalSupply: "123",
-      transactions: []
-    });
-   */
+    const crowdsale = CrowdsaleContract();
+    //const token123 = ElfToken();
+    let component = this;
+
+    crowdsale.events.TokensPurchased({
+      filter: {},
+      fromBlock: 0
+      }, function(error,event) {
+
+       let transaction = {
+          address: event.returnValues[1],
+          wei: bigInt(event.returnValues[2]._hex).toString(),
+          tokensBought: bigInt(event.returnValues[3]._hex).toString()
+        };
+        component.addTransaction(transaction);
+        component.scrollToBottom();
+      });
+
     this.scrollToBottom();
   }
 
-  addTransaction(transaction) {}
+  addTransaction(transaction) {
+    let transactions = this.state.transactions;
+    transactions[transactions.length] = transaction;
+    return this.setState({ transactions });
+  }
 
   scrollToBottom() {
     animateScroll.scrollToBottom({
@@ -264,32 +46,32 @@ class HomeComponent extends Component {
   }
 
   render() {
-    const listTransactions = this.state.transactions.map(x =>          
-      <tr key = {this.state.transactions.indexOf(x) + 1}>
-        <th className="col-xs-1" scope="row">{this.state.transactions.indexOf(x) + 1}</th>
+    const listTransactions = this.state.transactions.map(x => (
+      <tr key={this.state.transactions.indexOf(x) + 1}>
+        <th className="col-xs-1" scope="row">
+          {this.state.transactions.indexOf(x) + 1}
+        </th>
         <td className="col-xs-5">{x.address}</td>
-        <td className="col-xs-3">{x.quantity}</td>
-        <td className="col-xs-3">{x.time}</td>
+        <td className="col-xs-3">{x.wei}</td>
+        <td className="col-xs-3">{x.tokensBought}</td>
       </tr>
-    );
+    ));
 
     return (
       <div className="container">
         <h1>Tranasactions</h1>
-          <table className="table table-fixed">
-            <thead className="thead-dark">
-              <tr>
-                <th scope="col-xs-1">Id</th>
-                <th scope="col-xs-5">Adress</th>
-                <th scope="col-xs-3">Quantity</th>
-                <th scope="col-xs-3">Time</th>
-              </tr>
-            </thead>
-            <tbody id="lista">
-             {listTransactions}
-            </tbody>
-          </table>
-        </div>
+        <table className="table table-fixed">
+          <thead className="thead-dark">
+            <tr>
+              <th scope="col-xs-1">Id</th>
+              <th scope="col-xs-5">Adress</th>
+              <th scope="col-xs-3">Wei amount</th>
+              <th scope="col-xs-3">Token bought</th>
+            </tr>
+          </thead>
+          <tbody id="lista">{listTransactions}</tbody>
+        </table>
+      </div>
     );
   }
 }
