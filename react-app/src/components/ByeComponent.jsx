@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import CrowdsaleContract from "../services/CrowdsaleContract";
+import web3 from "./../services/web3";
 
 class ByeComponent extends Component {
     constructor(props) {
@@ -9,40 +11,45 @@ class ByeComponent extends Component {
       }
     
   state = {
-    currentRate: "2",
-    ethers: "0",
-    elfak: "0"
+    currentRate: "",
+    ethers: "",
+    elfak: ""
   };
 
-  handleChangeEthers(event) {
-    let ethers = event.target.value;
-    let elfak = 0;
-   
-    elfak = ethers * this.state.currentRate;
+  async componentDidMount() {
 
-    this.setState({ ethers: ethers, elfak: elfak });
+    let crntRate = await CrowdsaleContract.getCurrentRate();
+    this.setState({ currentRate: crntRate});
   }
 
-  handleChangeElfak(event) {
-    let elfak = event.target.value;
-    let ethers = 0;
+  async handleChangeEthers(event) {
+    let weis = event.target.value;
+    let tokens = await CrowdsaleContract.convertWeiToToken(weis, this.state.currentRate);
+    this.setState({ ethers: weis, elfak: tokens });
+  }
 
-    ethers = elfak / this.state.currentRate;
-
-    this.setState({ ethers: ethers, elfak:elfak });
+  async handleChangeElfak(event) {
+    let tokens = event.target.value;
+    let weis = await CrowdsaleContract.convertTokenToWei(tokens, this.state.currentRate);
+    this.setState({ ethers: weis, elfak: tokens });
   }
 
   async handleBye(){
-
+    let addreses = await web3.eth.getAccounts();
+    try {
+    let tokensBrought = await CrowdsaleContract.buyTokens(addreses[0], this.state.ethers);
+    } catch (error) {
+      console.log("ERROR message: " + error);
+    }
   }
 
   render() {
     return (
       <React.Fragment>
-        <h1 className="form-text m-2">Bye tokens</h1>
+        <h1 className="form-text m-2">Buy tokens</h1>
         <div className="col-md-12">
           <div className="form-group">
-            <label htmlFor="QuantityEther">Quantity of ethes</label>
+            <label htmlFor="QuantityEther">Quantity of wei</label>
             <input
               type="text"
               className="form-control"
@@ -53,11 +60,11 @@ class ByeComponent extends Component {
               onChange = {this.handleChangeEthers}
             />
             <small id="QuantityEtherHelp" className="form-text text-muted">
-              Enter quantity of ethers wihch you wont to spend.
+              Enter quantity of wei which you want to spend.
             </small>
           </div>
           <div className="form-group">
-            <label htmlFor="InputQuantityELFAK">Quantity ELFAK token</label>
+            <label htmlFor="InputQuantityELFAK">Quantity ELFAKtoken</label>
             <input
               type="text"
               className="form-control"
@@ -67,7 +74,7 @@ class ByeComponent extends Component {
               onChange = {this.handleChangeElfak}
             />
             <small id="QuantityEtherELFAKHelp" className="form-text text-muted">
-              Enter quantity of elfak token wihch you wont to bye.
+              Enter quantity of ELFAKtoken witch you want to buy.
             </small>
           </div>
           <div className="form-group">
@@ -81,7 +88,7 @@ class ByeComponent extends Component {
               value={this.state.currentRate}
             />
             <small id="AdressHelp" className="form-text text-muted">
-              Coefficient of replacement.
+              Current rate
             </small>
           </div>
           <button
@@ -89,7 +96,7 @@ class ByeComponent extends Component {
             className="btn btn-primary"
             onClick={this.handleBye}
           >
-            Bye
+            Buy
           </button>
         </div>
       </React.Fragment>

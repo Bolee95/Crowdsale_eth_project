@@ -7,7 +7,7 @@ class MenuComponent extends Component {
     return (
       <nav className="nav flex-column">
         <div className="sidebar-header">
-          <h3 className="bold">Menu</h3>
+          <h3 className="bold" id= "justified">Menu</h3>
         </div>
         <a className="nav-link active" href="/">
           Home
@@ -19,7 +19,7 @@ class MenuComponent extends Component {
           Transfer
         </a>
         <a className="nav-link" href="/byetokens">
-          Bye tokens
+          Buy tokens
         </a>
       </nav>
     );

@@ -39,11 +39,11 @@ class CrowdsaleContract {
         var date = new Date(0);
         date.setUTCSeconds(bigInt(timeLeft._hex));
 
-        return date.toLocaleTimeString();
+        return date.toLocaleDateString() + " " + date.toLocaleTimeString();
     }
     
     // Metoda za kupovinu tokena od strane trenutnog korisnika (dobija se samo approve)
-    async buyTokens(address,tokenAmount) {
+    async buyTokens(address, tokenAmount) {
         const crowdsaleContract = crowdsale();
         let tokensApproved = await crowdsaleContract.methods.buyTokens(address)
         .send({from: address, value: tokenAmount});
@@ -73,8 +73,6 @@ class CrowdsaleContract {
         let returnVal = (tokenAmount * Math.pow(10,decimals)) / currentRate;
         return returnVal; 
     }
-
-
 }
 
 export default CrowdsaleContract = new CrowdsaleContract();

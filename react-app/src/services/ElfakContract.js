@@ -54,13 +54,20 @@ class ElfakContract {
     }
 
     // Metoda koja se poziva kada se klikne dugme @Get tokens@
-    async getTokens(address) {
+    async getTokens(tokenOwner, address) {
+        const tokenContract = elfaktoken();
+        let approvedFunds = await tokenContract.methods.allowance(tokenOwner, address).call();
+        let tokensTransfered = await tokenContract.methods.transferFrom(tokenOwner, address, approvedFunds)
+        .send({from: address});
+        return tokensTransfered;
+    }
+
+    // Metoda koja vraca adresu vlasnika tokena
+    
+    async getOwnerAddress() {
         const tokenContract = elfaktoken();
         let tokenOwner = await tokenContract.methods.getOwnerAddress().call();
-        let approvedFunds = await tokenContract.methods.allowance(tokenOwner, address).call();
-        let tokensTransfered = await tokenContract.methods.transferFrom(tokenOwner, address, bigInt(approvedFunds._hex))
-        .send({from: address, value: bigInt(approvedFunds._hex)});
-        return tokensTransfered;
+        return tokenOwner;   
     }
 
     // Metoda za slanje tokena od strane trenutnog korisnika prema drugom korisniku
