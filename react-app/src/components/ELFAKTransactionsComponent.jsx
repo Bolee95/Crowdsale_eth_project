@@ -44,7 +44,7 @@ class ElfakTransactionsComponent extends Component {
 
   scrollToBottom() {
     animateScroll.scrollToBottom({
-      containerId: "lista"
+      containerId: "root"
     });
   }
 

@@ -62,8 +62,7 @@ class ElfakContract {
         return tokensTransfered;
     }
 
-    // Metoda koja vraca adresu vlasnika tokena
-    
+    // Metoda koja vraca adresu vlasnika tokena  
     async getOwnerAddress() {
         const tokenContract = elfaktoken();
         let tokenOwner = await tokenContract.methods.getOwnerAddress().call();
