@@ -16,12 +16,6 @@ class SendComponent extends Component {
     value: "0"
   };
 
-  /*
-  handleSubmit(model){
-    
-  }
-*/
-
   async handleSubmit(event) {
     try {
     let addreses = await web3.eth.getAccounts();

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class ByeComponent extends Component {
+class ApproveComponent extends Component {
     constructor(props) {
         super(props);
         this.handleBye = this.handleBye.bind(this);
@@ -42,11 +42,11 @@ class ByeComponent extends Component {
         <h1 className="form-text m-2">Bye tokens</h1>
         <div className="col-md-12">
           <div className="form-group">
-            <label htmlFor="QuantityEther">Quantity of ethes</label>
+            <label htmlFor="AddressSender">Quantity of ethes</label>
             <input
               type="text"
               className="form-control"
-              id="QuantityEther"
+              id="AddressSender"
               aria-describedby="emailHelp"
               placeholder="Enter quantity"
               value = {this.state.ethers}
@@ -97,4 +97,4 @@ class ByeComponent extends Component {
   }
 }
 
-export default ByeComponent;
+export default ApproveComponent;
