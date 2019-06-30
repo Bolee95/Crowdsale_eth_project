@@ -49,7 +49,7 @@ class ElfakContract {
     async transferTokens(address,addrFrom, addrTo, tokenAmount) {
         const tokenContract = elfaktoken();
         let tokensTransfered = await tokenContract.methods.transferFrom(addrFrom, addrTo, tokenAmount)
-        .send({from: address, value: tokenAmount});
+        .send({from: address});
         return tokensTransfered;
     }
 
