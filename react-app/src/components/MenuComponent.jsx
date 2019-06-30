@@ -5,14 +5,14 @@ class MenuComponent extends Component {
 
   render() {
     return (
-      <nav className="nav flex-column">
+      <nav className="nav flex-column whiteColorClass">
         <div className="sidebar-header">
           <h3 className="bold" id= "justified">Menu</h3>
         </div>
-        <a className="nav-link active" href="/">
+        <a className="nav-link"  href="/">
         Crowdsale transactions
         </a>
-        <a className="nav-link active" href="/elfak">
+        <a className="nav-link" href="/elfak">
         ELFAK transactions
         </a>
         <a className="nav-link" href="/send">

@@ -63,7 +63,8 @@ class ProfileComponent extends Component {
 
   async handleGettingTokens() {
     try {
-      let tokensTransfered = await ElfakContract.getTokens(Addresses.TimedTokenCrowdsale,
+      let ownerAddress = await ElfakContract.getOwnerAddress();
+      let tokensTransfered = await ElfakContract.getTokens(ownerAddress,
         this.state.userAddress);
     }
     catch (error) { console.log("ERROR:   " + error) }

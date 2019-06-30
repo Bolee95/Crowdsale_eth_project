@@ -22,12 +22,17 @@
   color: #61dafb;
 }
 
+.whiteColorClass a{
+  text-align: center;
+  color:white;
+}
+
 #justified {
   text-align: center;
 }
 
-#centered {
-  float: center;
+#whiteColor {
+  text-decoration-color: white;
 }
 
 @keyframes App-logo-spin {

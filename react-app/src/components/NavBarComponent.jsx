@@ -28,7 +28,7 @@ class NavBarComponent extends Component {
         <a className="navbar-brand" href="/">
           Crowdsale Project
         </a>
-        <a className="navbar-brand" href=""
+        <a className="navbar-brand" href="#"
         >
           {this.state.timeAndDate}
         </a>
