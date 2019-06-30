@@ -88,11 +88,9 @@ class ElfakContract {
 
         return bigInt(allowedFunds._hex).toString();
     }
-
-    } 
     
     // Metoda koja pribavlja broj decimala zadatog tokena
-    async getDecimals() {
+    async getDecimals(){
         const tokenContract = elfaktoken();
         let decimals = await tokenContract.methods.decimals().call();
 
