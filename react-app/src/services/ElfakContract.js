@@ -70,7 +70,15 @@ class ElfakContract {
         .send({from: address});
 
         return tokensTransfered;
-    }
+    } 
+    
+    // Metoda koja pribavlja broj decimala zadatog tokena
+    async getDecimals() {
+        const tokenContract = elfaktoken();
+        let decimals = await tokenContract.methods.decimals().call();
+
+        return decimals;
+    }    
 }
 
 export default ElfakContract = new ElfakContract();

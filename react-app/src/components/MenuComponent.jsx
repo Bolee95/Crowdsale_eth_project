@@ -10,17 +10,23 @@ class MenuComponent extends Component {
           <h3 className="bold">Menu</h3>
         </div>
         <a className="nav-link active" href="/">
-          Home
+        Crowdsale transactions
+        </a>
+        <a className="nav-link active" href="/elfak">
+        ELFAK transactions
         </a>
         <a className="nav-link" href="/send">
           Send tokens
         </a>
-        <a className="nav-link" href="/transfer">
-          Transfer
-        </a>
         <a className="nav-link" href="/byetokens">
           Bye tokens
         </a>
+        <a className="nav-link" href="/approve">
+          Approve transfer
+        </a>
+        <a className="nav-link" href="/transfer">
+          Transfer
+        </a>  
       </nav>
     );
   }
