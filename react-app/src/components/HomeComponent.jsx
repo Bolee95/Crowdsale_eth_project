@@ -44,7 +44,7 @@ class HomeComponent extends Component {
 
   scrollToBottom() {
     animateScroll.scrollToBottom({
-      containerId: "root"
+      containerId: "bootom"
     });
   }
 
@@ -74,6 +74,7 @@ class HomeComponent extends Component {
           </thead>
           <tbody id="lista">{listTransactions}</tbody>
         </table>
+        <div id="bootom"></div>
       </React.Fragment>
     );
   }
