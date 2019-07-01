@@ -52,7 +52,7 @@ class SendComponent extends Component {
         <h1 className="form-text m-2">Send tokens</h1>
         <div className="col-md-12">
           <div className="form-group">
-            <label htmlFor="InputAdress">Adress where send</label>
+            <label htmlFor="InputAdress"> Beneficionary address</label>
             <input
               name = "address"
               onChange = {this.handleChangeAddress}
@@ -63,11 +63,11 @@ class SendComponent extends Component {
               placeholder="Enter adress"
             />
             <small id="AdressHelp" className="form-text text-muted">
-              Adress where send tokens.
+              Adress where tokens should be send.
             </small>
           </div>
           <div className="form-group">
-            <label htmlFor="InputQuantity">Quantity tokens</label>
+            <label htmlFor="InputQuantity">Quantity of tokens</label>
             <input
               name = "quantity"
               onChange = {this.handleChangeValaue}

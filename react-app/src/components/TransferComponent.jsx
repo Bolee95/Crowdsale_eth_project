@@ -98,7 +98,7 @@ class TransferComponent extends Component {
         <h1 className="form-text m-2">Check approved</h1>
         <div className="col-md-12">
           <div className="form-group">
-            <label htmlFor="InputAdressWhoSend">Adress who approved</label>
+            <label htmlFor="InputAdressWhoSend">Adress of person who approved tokens that should be spend</label>
             <input
               type="text"
               className="form-control"
@@ -122,7 +122,7 @@ class TransferComponent extends Component {
         <h1 className="form-text m-2">Transfer tokens</h1>
         <div className="col-md-12">
           <div className="form-group">
-            <label htmlFor="InputAdressWhoSend">Adress who send</label>
+            <label htmlFor="InputAdressWhoSend">Sender address</label>
             <input
               type="text"
               className="form-control"
@@ -133,11 +133,11 @@ class TransferComponent extends Component {
               onChange={this.InputAdressSender}
             />
             <small id="InputAdressWhoSendHelp" className="form-text text-muted">
-              The address from where it is sent.
+              The address from where tokens are being send.
             </small>
           </div>
           <div className="form-group">
-            <label htmlFor="InputAdress">Adress where send</label>
+            <label htmlFor="InputAdress">Beneficiary address</label>
             <input
               type="text"
               className="form-control"
@@ -148,11 +148,11 @@ class TransferComponent extends Component {
               onChange={this.InputAdressReciver}
             />
             <small id="AdressHelp" className="form-text text-muted">
-              Adress where send tokens.
+              Adress where tokens should be send.
             </small>
           </div>
           <div className="form-group">
-            <label htmlFor="InputQuantity">Quantity tokens</label>
+            <label htmlFor="InputQuantity">Quantity of tokens</label>
             <input
               type="text"
               className="form-control"
